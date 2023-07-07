@@ -1,0 +1,27 @@
+Description: Use correct unsigned int (or pointer to) to fix test failures on big endian systems
+Author: Marcus Meissner <marcus@jet.franken.de>
+Origin: commit:dce6c3a6b3178b2c0206aa9180a51fdcda7fb19f
+Bug: https://github.com/libexif/exif/issues/2
+Bug-Debian: https://bugs.debian.org/962755
+Last-Update: 2020-07-09
+
+--- a/exif/actions.c
++++ b/exif/actions.c
+@@ -479,7 +479,7 @@
+ }
+ 
+ static void
+-print_hline (unsigned char ids, unsigned int screenwidth)
++print_hline (unsigned int ids, unsigned int screenwidth)
+ {
+         unsigned int i, width;
+ 
+@@ -599,7 +599,7 @@
+ static void
+ show_entry_machine (ExifEntry *e, void *data)
+ {
+-	unsigned char *ids = data;
++	unsigned int *ids = data;
+ 	char v[TAG_VALUE_BUF];
+ 	ExifIfd ifd = exif_entry_get_ifd (e);
+ 
